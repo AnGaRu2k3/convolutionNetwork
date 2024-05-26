@@ -1,0 +1,22 @@
+model:
+  net:
+    conv_layers:
+      - out_channels: 64
+        kernel_size: 3
+        stride: 1
+        padding: 1
+      - out_channels: 128
+        kernel_size: 3
+        stride: 1
+        padding: 1
+      - out_channels: 256
+        kernel_size: 3
+        stride: 1
+        padding: 1
+      - out_channels: 512
+        kernel_size: 3
+        stride: 1
+        padding: 1
+  mlp:
+    hidden_dim: 1024
+  max_pool_stride: 2
