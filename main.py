@@ -49,10 +49,10 @@ def main(args):
     # Build dataset based on arguments specified by user
     num_classes, train_dataset, valid_dataset = get_dataset(args.dataset)
 
-    print("=" * os.get_terminal_size().columns)
+    print("=" * 80)
     print(f"Train: {len(train_dataset)} samples")
     print(f"Validation: {len(valid_dataset)} samples")
-    print("=" * os.get_terminal_size().columns)
+    print("=" * 80)
 
     train_dataloader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, drop_last=True)
     valid_dataloader = DataLoader(valid_dataset, batch_size=args.batch_size, shuffle=False, drop_last=False)
@@ -77,11 +77,10 @@ def main(args):
         model = ANN(num_classes, args.mlp_dropout_rate)
     elif args.model_type == "cnn":
         model = CNN(3, num_classes, model_config["model"]["net"], model_config["model"]["mlp"], args.mlp_dropout_rate, args.conv_dropout_rate, model_config["model"]["max_pool_stride"])
-    
+    model.to(device)
     print("=" * os.get_terminal_size().columns)
     summary(model, (3, 224, 224))
     print("=" * os.get_terminal_size().columns)
-    model.to(device)
     
     if len(args.load_ckpt):
         state_dict = torch.load(args.load_ckpt, map_location=device)
